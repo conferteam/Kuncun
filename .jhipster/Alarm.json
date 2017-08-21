@@ -1,0 +1,23 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "reserves",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "limit",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "changelogDate": "20170816093103",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "alarm",
+    "pagination": "no"
+}

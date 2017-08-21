@@ -1,0 +1,35 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name_id",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "count",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "username",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "Instant"
+        }
+    ],
+    "changelogDate": "20170816102222",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "uselog",
+    "pagination": "no"
+}
