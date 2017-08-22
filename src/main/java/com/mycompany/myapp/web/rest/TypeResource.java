@@ -5,6 +5,7 @@ import com.mycompany.myapp.config.Constants;
 import com.mycompany.myapp.domain.Type;
 
 import com.mycompany.myapp.repository.TypeRepository;
+import com.mycompany.myapp.service.UseLogService;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -30,12 +31,16 @@ public class TypeResource {
     private static final String ENTITY_NAME = "type";
 
     private final TypeRepository typeRepository;
+    
+    private final UseLogService useLogService;
 
-    public TypeResource(TypeRepository typeRepository) {
+    public TypeResource(TypeRepository typeRepository, UseLogService useLogService) {
         this.typeRepository = typeRepository;
+        this.useLogService = useLogService;
     }
 
-    /**
+
+	/**
      * POST  /types : Create a new type.
      *
      * @param type the type to create
@@ -57,6 +62,7 @@ public class TypeResource {
         }
         type.setDelFlag(Constants.NOT_DELETE);
         Type result = typeRepository.save(type);
+        useLogService.saveUseLog(type.getId(), type.getName(), type.getReserves(), Constants.TYPE_CREATE);
         return ResponseEntity.created(new URI("/api/types/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

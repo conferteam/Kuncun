@@ -34,10 +34,10 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="count" type="integer">
+            <column name="count" type="decimal(10,2)">
                 <constraints nullable="true" />
             </column>
-
+            
             <column name="username" type="varchar(255)">
                 <constraints nullable="true" />
             </column>

@@ -18,9 +18,9 @@
             "nameId": "Name Id",
             "name": "Name",
             "type": "Type",
-            "count": "Count",
             "username": "Username",
-            "date": "Date"
+            "date": "Date",
+            "count": "Count"
         }
     }
 }

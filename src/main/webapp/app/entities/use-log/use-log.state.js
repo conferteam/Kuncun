@@ -107,9 +107,9 @@
                                 nameId: null,
                                 name: null,
                                 type: null,
-                                count: null,
                                 username: null,
                                 date: null,
+                                count: null,
                                 id: null
                             };
                         }

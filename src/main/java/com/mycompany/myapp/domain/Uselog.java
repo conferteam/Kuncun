@@ -2,9 +2,16 @@ package com.mycompany.myapp.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.envers.Audited;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Objects;
 
@@ -14,6 +21,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "use_log")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@EntityListeners(AuditingEntityListener.class)
 public class UseLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,14 +39,16 @@ public class UseLog implements Serializable {
     @Column(name = "jhi_type")
     private Integer type;
 
-    @Column(name = "count")
-    private Integer count;
-
+    @CreatedBy
     @Column(name = "username")
     private String username;
 
+    @CreatedDate
     @Column(name = "jhi_date")
-    private Instant date;
+    private Instant date = Instant.now();
+
+    @Column(name = "count", precision=10, scale=2)
+    private BigDecimal count;
 
     public Long getId() {
         return id;
@@ -87,19 +97,6 @@ public class UseLog implements Serializable {
         this.type = type;
     }
 
-    public Integer getCount() {
-        return count;
-    }
-
-    public UseLog count(Integer count) {
-        this.count = count;
-        return this;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -124,6 +121,19 @@ public class UseLog implements Serializable {
 
     public void setDate(Instant date) {
         this.date = date;
+    }
+
+    public BigDecimal getCount() {
+        return count;
+    }
+
+    public UseLog count(BigDecimal count) {
+        this.count = count;
+        return this;
+    }
+
+    public void setCount(BigDecimal count) {
+        this.count = count;
     }
 
     @Override
@@ -153,9 +163,9 @@ public class UseLog implements Serializable {
             ", nameId='" + getNameId() + "'" +
             ", name='" + getName() + "'" +
             ", type='" + getType() + "'" +
-            ", count='" + getCount() + "'" +
             ", username='" + getUsername() + "'" +
             ", date='" + getDate() + "'" +
+            ", count='" + getCount() + "'" +
             "}";
     }
 }

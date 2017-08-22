@@ -15,16 +15,16 @@
             "fieldType": "Integer"
         },
         {
-            "fieldName": "count",
-            "fieldType": "Integer"
-        },
-        {
             "fieldName": "username",
             "fieldType": "String"
         },
         {
             "fieldName": "date",
             "fieldType": "Instant"
+        },
+        {
+            "fieldName": "count",
+            "fieldType": "BigDecimal"
         }
     ],
     "changelogDate": "20170822030509",
