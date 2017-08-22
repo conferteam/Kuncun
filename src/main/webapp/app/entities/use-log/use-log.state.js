@@ -9,53 +9,53 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('uselog', {
+        .state('use-log', {
             parent: 'entity',
-            url: '/uselog',
+            url: '/use-log',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'kucunApp.uselog.home.title'
+                pageTitle: 'kucunApp.useLog.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/uselog/uselogs.html',
-                    controller: 'UselogController',
+                    templateUrl: 'app/entities/use-log/use-logs.html',
+                    controller: 'UseLogController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('uselog');
+                    $translatePartialLoader.addPart('useLog');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('uselog-detail', {
-            parent: 'uselog',
-            url: '/uselog/{id}',
+        .state('use-log-detail', {
+            parent: 'use-log',
+            url: '/use-log/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'kucunApp.uselog.detail.title'
+                pageTitle: 'kucunApp.useLog.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/uselog/uselog-detail.html',
-                    controller: 'UselogDetailController',
+                    templateUrl: 'app/entities/use-log/use-log-detail.html',
+                    controller: 'UseLogDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('uselog');
+                    $translatePartialLoader.addPart('useLog');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Uselog', function($stateParams, Uselog) {
-                    return Uselog.get({id : $stateParams.id}).$promise;
+                entity: ['$stateParams', 'UseLog', function($stateParams, UseLog) {
+                    return UseLog.get({id : $stateParams.id}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
-                        name: $state.current.name || 'uselog',
+                        name: $state.current.name || 'use-log',
                         params: $state.params,
                         url: $state.href($state.current.name, $state.params)
                     };
@@ -63,22 +63,22 @@
                 }]
             }
         })
-        .state('uselog-detail.edit', {
-            parent: 'uselog-detail',
+        .state('use-log-detail.edit', {
+            parent: 'use-log-detail',
             url: '/detail/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/uselog/uselog-dialog.html',
-                    controller: 'UselogDialogController',
+                    templateUrl: 'app/entities/use-log/use-log-dialog.html',
+                    controller: 'UseLogDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Uselog', function(Uselog) {
-                            return Uselog.get({id : $stateParams.id}).$promise;
+                        entity: ['UseLog', function(UseLog) {
+                            return UseLog.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -88,23 +88,23 @@
                 });
             }]
         })
-        .state('uselog.new', {
-            parent: 'uselog',
+        .state('use-log.new', {
+            parent: 'use-log',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/uselog/uselog-dialog.html',
-                    controller: 'UselogDialogController',
+                    templateUrl: 'app/entities/use-log/use-log-dialog.html',
+                    controller: 'UseLogDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
                         entity: function () {
                             return {
-                                name_id: null,
+                                nameId: null,
                                 name: null,
                                 type: null,
                                 count: null,
@@ -115,56 +115,56 @@
                         }
                     }
                 }).result.then(function() {
-                    $state.go('uselog', null, { reload: 'uselog' });
+                    $state.go('use-log', null, { reload: 'use-log' });
                 }, function() {
-                    $state.go('uselog');
+                    $state.go('use-log');
                 });
             }]
         })
-        .state('uselog.edit', {
-            parent: 'uselog',
+        .state('use-log.edit', {
+            parent: 'use-log',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/uselog/uselog-dialog.html',
-                    controller: 'UselogDialogController',
+                    templateUrl: 'app/entities/use-log/use-log-dialog.html',
+                    controller: 'UseLogDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Uselog', function(Uselog) {
-                            return Uselog.get({id : $stateParams.id}).$promise;
+                        entity: ['UseLog', function(UseLog) {
+                            return UseLog.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('uselog', null, { reload: 'uselog' });
+                    $state.go('use-log', null, { reload: 'use-log' });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('uselog.delete', {
-            parent: 'uselog',
+        .state('use-log.delete', {
+            parent: 'use-log',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/uselog/uselog-delete-dialog.html',
-                    controller: 'UselogDeleteController',
+                    templateUrl: 'app/entities/use-log/use-log-delete-dialog.html',
+                    controller: 'UseLogDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Uselog', function(Uselog) {
-                            return Uselog.get({id : $stateParams.id}).$promise;
+                        entity: ['UseLog', function(UseLog) {
+                            return UseLog.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('uselog', null, { reload: 'uselog' });
+                    $state.go('use-log', null, { reload: 'use-log' });
                 }, function() {
                     $state.go('^');
                 });

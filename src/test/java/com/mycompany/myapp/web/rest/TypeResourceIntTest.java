@@ -90,7 +90,7 @@ public class TypeResourceIntTest {
             .name(DEFAULT_NAME)
             .reserves(DEFAULT_RESERVES)
             .limit(DEFAULT_LIMIT)
-            .del_flag(DEFAULT_DEL_FLAG);
+            .delFlag(DEFAULT_DEL_FLAG);
         return type;
     }
 
@@ -117,7 +117,7 @@ public class TypeResourceIntTest {
         assertThat(testType.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testType.getReserves()).isEqualTo(DEFAULT_RESERVES);
         assertThat(testType.getLimit()).isEqualTo(DEFAULT_LIMIT);
-        assertThat(testType.getDel_flag()).isEqualTo(DEFAULT_DEL_FLAG);
+        assertThat(testType.getDelFlag()).isEqualTo(DEFAULT_DEL_FLAG);
     }
 
     @Test
@@ -153,7 +153,7 @@ public class TypeResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].reserves").value(hasItem(DEFAULT_RESERVES.intValue())))
             .andExpect(jsonPath("$.[*].limit").value(hasItem(DEFAULT_LIMIT.intValue())))
-            .andExpect(jsonPath("$.[*].del_flag").value(hasItem(DEFAULT_DEL_FLAG)));
+            .andExpect(jsonPath("$.[*].delFlag").value(hasItem(DEFAULT_DEL_FLAG)));
     }
 
     @Test
@@ -170,7 +170,7 @@ public class TypeResourceIntTest {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.reserves").value(DEFAULT_RESERVES.intValue()))
             .andExpect(jsonPath("$.limit").value(DEFAULT_LIMIT.intValue()))
-            .andExpect(jsonPath("$.del_flag").value(DEFAULT_DEL_FLAG));
+            .andExpect(jsonPath("$.delFlag").value(DEFAULT_DEL_FLAG));
     }
 
     @Test
@@ -194,7 +194,7 @@ public class TypeResourceIntTest {
             .name(UPDATED_NAME)
             .reserves(UPDATED_RESERVES)
             .limit(UPDATED_LIMIT)
-            .del_flag(UPDATED_DEL_FLAG);
+            .delFlag(UPDATED_DEL_FLAG);
 
         restTypeMockMvc.perform(put("/api/types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -208,7 +208,7 @@ public class TypeResourceIntTest {
         assertThat(testType.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testType.getReserves()).isEqualTo(UPDATED_RESERVES);
         assertThat(testType.getLimit()).isEqualTo(UPDATED_LIMIT);
-        assertThat(testType.getDel_flag()).isEqualTo(UPDATED_DEL_FLAG);
+        assertThat(testType.getDelFlag()).isEqualTo(UPDATED_DEL_FLAG);
     }
 
     @Test

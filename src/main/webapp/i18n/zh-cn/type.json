@@ -18,7 +18,7 @@
             "name": "Name",
             "reserves": "Reserves",
             "limit": "Limit",
-            "del_flag": "Del Flag"
+            "delFlag": "Del Flag"
         }
     }
 }

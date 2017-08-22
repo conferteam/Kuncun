@@ -1,4 +1,4 @@
-<form name="deleteForm" ng-submit="vm.confirmDelete(vm.uselog.id)">
+<form name="deleteForm" ng-submit="vm.confirmDelete(vm.useLog.id)">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="vm.clear()">&times;</button>
@@ -6,7 +6,7 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <p data-translate="kucunApp.uselog.delete.question" translate-values="{id: '{{vm.uselog.id}}'}">Are you sure you want to delete this Uselog?</p>
+        <p data-translate="kucunApp.useLog.delete.question" translate-values="{id: '{{vm.useLog.id}}'}">Are you sure you want to delete this Use Log?</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">

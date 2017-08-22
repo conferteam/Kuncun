@@ -3,7 +3,7 @@
     "relationships": [],
     "fields": [
         {
-            "fieldName": "name_id",
+            "fieldName": "nameId",
             "fieldType": "Long"
         },
         {
@@ -27,9 +27,9 @@
             "fieldType": "Instant"
         }
     ],
-    "changelogDate": "20170816102222",
+    "changelogDate": "20170822030509",
     "dto": "no",
     "service": "no",
-    "entityTableName": "uselog",
+    "entityTableName": "use_log",
     "pagination": "no"
 }

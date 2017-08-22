@@ -9,7 +9,7 @@
                 "main": "数据",
                 "type": "Type",
                 "alarm": "Alarm",
-                "uselog": "Uselog",
+                "useLog": "Use Log",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

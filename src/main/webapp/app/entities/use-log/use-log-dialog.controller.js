@@ -3,14 +3,14 @@
 
     angular
         .module('kucunApp')
-        .controller('UselogDialogController', UselogDialogController);
+        .controller('UseLogDialogController', UseLogDialogController);
 
-    UselogDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Uselog'];
+    UseLogDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'UseLog'];
 
-    function UselogDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Uselog) {
+    function UseLogDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, UseLog) {
         var vm = this;
 
-        vm.uselog = entity;
+        vm.useLog = entity;
         vm.clear = clear;
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
@@ -26,15 +26,15 @@
 
         function save () {
             vm.isSaving = true;
-            if (vm.uselog.id !== null) {
-                Uselog.update(vm.uselog, onSaveSuccess, onSaveError);
+            if (vm.useLog.id !== null) {
+                UseLog.update(vm.useLog, onSaveSuccess, onSaveError);
             } else {
-                Uselog.save(vm.uselog, onSaveSuccess, onSaveError);
+                UseLog.save(vm.useLog, onSaveSuccess, onSaveError);
             }
         }
 
         function onSaveSuccess (result) {
-            $scope.$emit('kucunApp:uselogUpdate', result);
+            $scope.$emit('kucunApp:useLogUpdate', result);
             $uibModalInstance.close(result);
             vm.isSaving = false;
         }

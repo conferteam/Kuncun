@@ -15,7 +15,7 @@
             "fieldType": "BigDecimal"
         }
     ],
-    "changelogDate": "20170816093103",
+    "changelogDate": "20170822030259",
     "dto": "no",
     "service": "no",
     "entityTableName": "alarm",

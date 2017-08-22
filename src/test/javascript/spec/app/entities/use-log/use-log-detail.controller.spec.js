@@ -2,9 +2,9 @@
 
 describe('Controller Tests', function() {
 
-    describe('Uselog Management Detail Controller', function() {
+    describe('UseLog Management Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockPreviousState, MockUselog;
+        var MockEntity, MockPreviousState, MockUseLog;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -12,7 +12,7 @@ describe('Controller Tests', function() {
             $scope = $rootScope.$new();
             MockEntity = jasmine.createSpy('MockEntity');
             MockPreviousState = jasmine.createSpy('MockPreviousState');
-            MockUselog = jasmine.createSpy('MockUselog');
+            MockUseLog = jasmine.createSpy('MockUseLog');
             
 
             var locals = {
@@ -20,17 +20,17 @@ describe('Controller Tests', function() {
                 '$rootScope': $rootScope,
                 'entity': MockEntity,
                 'previousState': MockPreviousState,
-                'Uselog': MockUselog
+                'UseLog': MockUseLog
             };
             createController = function() {
-                $injector.get('$controller')("UselogDetailController", locals);
+                $injector.get('$controller')("UseLogDetailController", locals);
             };
         }));
 
 
         describe('Root Scope Listening', function() {
             it('Unregisters root scope listener upon scope destruction', function() {
-                var eventType = 'kucunApp:uselogUpdate';
+                var eventType = 'kucunApp:useLogUpdate';
 
                 createController();
                 expect($rootScope.$$listenerCount[eventType]).toEqual(1);

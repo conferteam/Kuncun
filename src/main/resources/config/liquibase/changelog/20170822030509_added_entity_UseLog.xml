@@ -15,10 +15,10 @@
     <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
 
     <!--
-        Added the entity Uselog.
+        Added the entity UseLog.
     -->
-    <changeSet id="20170816102222-1" author="jhipster">
-        <createTable tableName="uselog">
+    <changeSet id="20170822030509-1" author="jhipster">
+        <createTable tableName="use_log">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -48,7 +48,7 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="uselog" columnName="jhi_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="use_log" columnName="jhi_date" columnDataType="datetime"/>
         
     </changeSet>
 </databaseChangeLog>

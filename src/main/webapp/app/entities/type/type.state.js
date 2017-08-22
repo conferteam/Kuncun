@@ -107,7 +107,7 @@
                                 name: null,
                                 reserves: null,
                                 limit: null,
-                                del_flag: null,
+                                delFlag: null,
                                 id: null
                             };
                         }

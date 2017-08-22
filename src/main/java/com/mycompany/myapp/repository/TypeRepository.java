@@ -3,7 +3,6 @@ package com.mycompany.myapp.repository;
 import com.mycompany.myapp.domain.Type;
 import org.springframework.stereotype.Repository;
 
-
 import org.springframework.data.jpa.repository.*;
 
 
@@ -14,5 +13,4 @@ import org.springframework.data.jpa.repository.*;
 @Repository
 public interface TypeRepository extends JpaRepository<Type,Long> {
     
-	
 }

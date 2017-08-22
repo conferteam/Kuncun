@@ -1,9 +1,9 @@
 package com.mycompany.myapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.mycompany.myapp.domain.Uselog;
+import com.mycompany.myapp.domain.UseLog;
 
-import com.mycompany.myapp.repository.UselogRepository;
+import com.mycompany.myapp.repository.UseLogRepository;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -18,101 +18,101 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * REST controller for managing Uselog.
+ * REST controller for managing UseLog.
  */
 @RestController
 @RequestMapping("/api")
-public class UselogResource {
+public class UseLogResource {
 
-    private final Logger log = LoggerFactory.getLogger(UselogResource.class);
+    private final Logger log = LoggerFactory.getLogger(UseLogResource.class);
 
-    private static final String ENTITY_NAME = "uselog";
+    private static final String ENTITY_NAME = "useLog";
 
-    private final UselogRepository uselogRepository;
+    private final UseLogRepository useLogRepository;
 
-    public UselogResource(UselogRepository uselogRepository) {
-        this.uselogRepository = uselogRepository;
+    public UseLogResource(UseLogRepository useLogRepository) {
+        this.useLogRepository = useLogRepository;
     }
 
     /**
-     * POST  /uselogs : Create a new uselog.
+     * POST  /use-logs : Create a new useLog.
      *
-     * @param uselog the uselog to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new uselog, or with status 400 (Bad Request) if the uselog has already an ID
+     * @param useLog the useLog to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new useLog, or with status 400 (Bad Request) if the useLog has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PostMapping("/uselogs")
+    @PostMapping("/use-logs")
     @Timed
-    public ResponseEntity<Uselog> createUselog(@RequestBody Uselog uselog) throws URISyntaxException {
-        log.debug("REST request to save Uselog : {}", uselog);
-        if (uselog.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new uselog cannot already have an ID")).body(null);
+    public ResponseEntity<UseLog> createUseLog(@RequestBody UseLog useLog) throws URISyntaxException {
+        log.debug("REST request to save UseLog : {}", useLog);
+        if (useLog.getId() != null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new useLog cannot already have an ID")).body(null);
         }
-        Uselog result = uselogRepository.save(uselog);
-        return ResponseEntity.created(new URI("/api/uselogs/" + result.getId()))
+        UseLog result = useLogRepository.save(useLog);
+        return ResponseEntity.created(new URI("/api/use-logs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
     /**
-     * PUT  /uselogs : Updates an existing uselog.
+     * PUT  /use-logs : Updates an existing useLog.
      *
-     * @param uselog the uselog to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated uselog,
-     * or with status 400 (Bad Request) if the uselog is not valid,
-     * or with status 500 (Internal Server Error) if the uselog couldn't be updated
+     * @param useLog the useLog to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated useLog,
+     * or with status 400 (Bad Request) if the useLog is not valid,
+     * or with status 500 (Internal Server Error) if the useLog couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PutMapping("/uselogs")
+    @PutMapping("/use-logs")
     @Timed
-    public ResponseEntity<Uselog> updateUselog(@RequestBody Uselog uselog) throws URISyntaxException {
-        log.debug("REST request to update Uselog : {}", uselog);
-        if (uselog.getId() == null) {
-            return createUselog(uselog);
+    public ResponseEntity<UseLog> updateUseLog(@RequestBody UseLog useLog) throws URISyntaxException {
+        log.debug("REST request to update UseLog : {}", useLog);
+        if (useLog.getId() == null) {
+            return createUseLog(useLog);
         }
-        Uselog result = uselogRepository.save(uselog);
+        UseLog result = useLogRepository.save(useLog);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, uselog.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, useLog.getId().toString()))
             .body(result);
     }
 
     /**
-     * GET  /uselogs : get all the uselogs.
+     * GET  /use-logs : get all the useLogs.
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of uselogs in body
+     * @return the ResponseEntity with status 200 (OK) and the list of useLogs in body
      */
-    @GetMapping("/uselogs")
+    @GetMapping("/use-logs")
     @Timed
-    public List<Uselog> getAllUselogs() {
-        log.debug("REST request to get all Uselogs");
-        return uselogRepository.findAll();
+    public List<UseLog> getAllUseLogs() {
+        log.debug("REST request to get all UseLogs");
+        return useLogRepository.findAll();
     }
 
     /**
-     * GET  /uselogs/:id : get the "id" uselog.
+     * GET  /use-logs/:id : get the "id" useLog.
      *
-     * @param id the id of the uselog to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the uselog, or with status 404 (Not Found)
+     * @param id the id of the useLog to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the useLog, or with status 404 (Not Found)
      */
-    @GetMapping("/uselogs/{id}")
+    @GetMapping("/use-logs/{id}")
     @Timed
-    public ResponseEntity<Uselog> getUselog(@PathVariable Long id) {
-        log.debug("REST request to get Uselog : {}", id);
-        Uselog uselog = uselogRepository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(uselog));
+    public ResponseEntity<UseLog> getUseLog(@PathVariable Long id) {
+        log.debug("REST request to get UseLog : {}", id);
+        UseLog useLog = useLogRepository.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(useLog));
     }
 
     /**
-     * DELETE  /uselogs/:id : delete the "id" uselog.
+     * DELETE  /use-logs/:id : delete the "id" useLog.
      *
-     * @param id the id of the uselog to delete
+     * @param id the id of the useLog to delete
      * @return the ResponseEntity with status 200 (OK)
      */
-    @DeleteMapping("/uselogs/{id}")
+    @DeleteMapping("/use-logs/{id}")
     @Timed
-    public ResponseEntity<Void> deleteUselog(@PathVariable Long id) {
-        log.debug("REST request to delete Uselog : {}", id);
-        uselogRepository.delete(id);
+    public ResponseEntity<Void> deleteUseLog(@PathVariable Long id) {
+        log.debug("REST request to delete UseLog : {}", id);
+        useLogRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

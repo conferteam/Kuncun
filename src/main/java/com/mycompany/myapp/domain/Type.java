@@ -32,7 +32,7 @@ public class Type implements Serializable {
     private BigDecimal limit;
 
     @Column(name = "del_flag")
-    private Integer del_flag;
+    private Integer delFlag;
 
     public Long getId() {
         return id;
@@ -81,17 +81,17 @@ public class Type implements Serializable {
         this.limit = limit;
     }
 
-    public Integer getDel_flag() {
-        return del_flag;
+    public Integer getDelFlag() {
+        return delFlag;
     }
 
-    public Type del_flag(Integer del_flag) {
-        this.del_flag = del_flag;
+    public Type delFlag(Integer delFlag) {
+        this.delFlag = delFlag;
         return this;
     }
 
-    public void setDel_flag(Integer del_flag) {
-        this.del_flag = del_flag;
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
     }
 
     @Override
@@ -121,7 +121,7 @@ public class Type implements Serializable {
             ", name='" + getName() + "'" +
             ", reserves='" + getReserves() + "'" +
             ", limit='" + getLimit() + "'" +
-            ", del_flag='" + getDel_flag() + "'" +
+            ", delFlag='" + getDelFlag() + "'" +
             "}";
     }
 }

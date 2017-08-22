@@ -3,14 +3,14 @@
 
     angular
         .module('kucunApp')
-        .controller('UselogDeleteController',UselogDeleteController);
+        .controller('UseLogDeleteController',UseLogDeleteController);
 
-    UselogDeleteController.$inject = ['$uibModalInstance', 'entity', 'Uselog'];
+    UseLogDeleteController.$inject = ['$uibModalInstance', 'entity', 'UseLog'];
 
-    function UselogDeleteController($uibModalInstance, entity, Uselog) {
+    function UseLogDeleteController($uibModalInstance, entity, UseLog) {
         var vm = this;
 
-        vm.uselog = entity;
+        vm.useLog = entity;
         vm.clear = clear;
         vm.confirmDelete = confirmDelete;
 
@@ -19,7 +19,7 @@
         }
 
         function confirmDelete (id) {
-            Uselog.delete({id: id},
+            UseLog.delete({id: id},
                 function () {
                     $uibModalInstance.close(true);
                 });

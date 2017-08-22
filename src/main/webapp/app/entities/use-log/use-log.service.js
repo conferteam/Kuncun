@@ -2,12 +2,12 @@
     'use strict';
     angular
         .module('kucunApp')
-        .factory('Uselog', Uselog);
+        .factory('UseLog', UseLog);
 
-    Uselog.$inject = ['$resource', 'DateUtils'];
+    UseLog.$inject = ['$resource', 'DateUtils'];
 
-    function Uselog ($resource, DateUtils) {
-        var resourceUrl =  'api/uselogs/:id';
+    function UseLog ($resource, DateUtils) {
+        var resourceUrl =  'api/use-logs/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},

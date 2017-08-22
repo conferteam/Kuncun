@@ -9,12 +9,12 @@ import java.time.Instant;
 import java.util.Objects;
 
 /**
- * A Uselog.
+ * A UseLog.
  */
 @Entity
-@Table(name = "uselog")
+@Table(name = "use_log")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Uselog implements Serializable {
+public class UseLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,7 +23,7 @@ public class Uselog implements Serializable {
     private Long id;
 
     @Column(name = "name_id")
-    private Long name_id;
+    private Long nameId;
 
     @Column(name = "name")
     private String name;
@@ -48,24 +48,24 @@ public class Uselog implements Serializable {
         this.id = id;
     }
 
-    public Long getName_id() {
-        return name_id;
+    public Long getNameId() {
+        return nameId;
     }
 
-    public Uselog name_id(Long name_id) {
-        this.name_id = name_id;
+    public UseLog nameId(Long nameId) {
+        this.nameId = nameId;
         return this;
     }
 
-    public void setName_id(Long name_id) {
-        this.name_id = name_id;
+    public void setNameId(Long nameId) {
+        this.nameId = nameId;
     }
 
     public String getName() {
         return name;
     }
 
-    public Uselog name(String name) {
+    public UseLog name(String name) {
         this.name = name;
         return this;
     }
@@ -78,7 +78,7 @@ public class Uselog implements Serializable {
         return type;
     }
 
-    public Uselog type(Integer type) {
+    public UseLog type(Integer type) {
         this.type = type;
         return this;
     }
@@ -91,7 +91,7 @@ public class Uselog implements Serializable {
         return count;
     }
 
-    public Uselog count(Integer count) {
+    public UseLog count(Integer count) {
         this.count = count;
         return this;
     }
@@ -104,7 +104,7 @@ public class Uselog implements Serializable {
         return username;
     }
 
-    public Uselog username(String username) {
+    public UseLog username(String username) {
         this.username = username;
         return this;
     }
@@ -117,7 +117,7 @@ public class Uselog implements Serializable {
         return date;
     }
 
-    public Uselog date(Instant date) {
+    public UseLog date(Instant date) {
         this.date = date;
         return this;
     }
@@ -134,11 +134,11 @@ public class Uselog implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Uselog uselog = (Uselog) o;
-        if (uselog.getId() == null || getId() == null) {
+        UseLog useLog = (UseLog) o;
+        if (useLog.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), uselog.getId());
+        return Objects.equals(getId(), useLog.getId());
     }
 
     @Override
@@ -148,9 +148,9 @@ public class Uselog implements Serializable {
 
     @Override
     public String toString() {
-        return "Uselog{" +
+        return "UseLog{" +
             "id=" + getId() +
-            ", name_id='" + getName_id() + "'" +
+            ", nameId='" + getNameId() + "'" +
             ", name='" + getName() + "'" +
             ", type='" + getType() + "'" +
             ", count='" + getCount() + "'" +

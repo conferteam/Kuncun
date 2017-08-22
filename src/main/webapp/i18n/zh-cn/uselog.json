@@ -1,21 +1,21 @@
 {
     "kucunApp": {
-        "uselog" : {
+        "useLog" : {
             "home": {
-                "title": "Uselogs",
-                "createLabel": "Create a new Uselog",
-                "createOrEditLabel": "Create or edit a Uselog"
+                "title": "Use Logs",
+                "createLabel": "Create a new Use Log",
+                "createOrEditLabel": "Create or edit a Use Log"
             },
-            "created": "A new Uselog is created with identifier {{ param }}",
-            "updated": "A Uselog is updated with identifier {{ param }}",
-            "deleted": "A Uselog is deleted with identifier {{ param }}",
+            "created": "A new Use Log is created with identifier {{ param }}",
+            "updated": "A Use Log is updated with identifier {{ param }}",
+            "deleted": "A Use Log is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Uselog {{ id }}?"
+                "question": "Are you sure you want to delete Use Log {{ id }}?"
             },
             "detail": {
-                "title": "Uselog"
+                "title": "Use Log"
             },
-            "name_id": "Name Id",
+            "nameId": "Name Id",
             "name": "Name",
             "type": "Type",
             "count": "Count",

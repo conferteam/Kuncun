@@ -2,8 +2,8 @@ package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.KucunApp;
 
-import com.mycompany.myapp.domain.Uselog;
-import com.mycompany.myapp.repository.UselogRepository;
+import com.mycompany.myapp.domain.UseLog;
+import com.mycompany.myapp.repository.UseLogRepository;
 import com.mycompany.myapp.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -31,13 +31,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
- * Test class for the UselogResource REST controller.
+ * Test class for the UseLogResource REST controller.
  *
- * @see UselogResource
+ * @see UseLogResource
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = KucunApp.class)
-public class UselogResourceIntTest {
+public class UseLogResourceIntTest {
 
     private static final Long DEFAULT_NAME_ID = 1L;
     private static final Long UPDATED_NAME_ID = 2L;
@@ -58,7 +58,7 @@ public class UselogResourceIntTest {
     private static final Instant UPDATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
-    private UselogRepository uselogRepository;
+    private UseLogRepository useLogRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -72,15 +72,15 @@ public class UselogResourceIntTest {
     @Autowired
     private EntityManager em;
 
-    private MockMvc restUselogMockMvc;
+    private MockMvc restUseLogMockMvc;
 
-    private Uselog uselog;
+    private UseLog useLog;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        UselogResource uselogResource = new UselogResource(uselogRepository);
-        this.restUselogMockMvc = MockMvcBuilders.standaloneSetup(uselogResource)
+        UseLogResource useLogResource = new UseLogResource(useLogRepository);
+        this.restUseLogMockMvc = MockMvcBuilders.standaloneSetup(useLogResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -92,76 +92,76 @@ public class UselogResourceIntTest {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
-    public static Uselog createEntity(EntityManager em) {
-        Uselog uselog = new Uselog()
-            .name_id(DEFAULT_NAME_ID)
+    public static UseLog createEntity(EntityManager em) {
+        UseLog useLog = new UseLog()
+            .nameId(DEFAULT_NAME_ID)
             .name(DEFAULT_NAME)
             .type(DEFAULT_TYPE)
             .count(DEFAULT_COUNT)
             .username(DEFAULT_USERNAME)
             .date(DEFAULT_DATE);
-        return uselog;
+        return useLog;
     }
 
     @Before
     public void initTest() {
-        uselog = createEntity(em);
+        useLog = createEntity(em);
     }
 
     @Test
     @Transactional
-    public void createUselog() throws Exception {
-        int databaseSizeBeforeCreate = uselogRepository.findAll().size();
+    public void createUseLog() throws Exception {
+        int databaseSizeBeforeCreate = useLogRepository.findAll().size();
 
-        // Create the Uselog
-        restUselogMockMvc.perform(post("/api/uselogs")
+        // Create the UseLog
+        restUseLogMockMvc.perform(post("/api/use-logs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(uselog)))
+            .content(TestUtil.convertObjectToJsonBytes(useLog)))
             .andExpect(status().isCreated());
 
-        // Validate the Uselog in the database
-        List<Uselog> uselogList = uselogRepository.findAll();
-        assertThat(uselogList).hasSize(databaseSizeBeforeCreate + 1);
-        Uselog testUselog = uselogList.get(uselogList.size() - 1);
-        assertThat(testUselog.getName_id()).isEqualTo(DEFAULT_NAME_ID);
-        assertThat(testUselog.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testUselog.getType()).isEqualTo(DEFAULT_TYPE);
-        assertThat(testUselog.getCount()).isEqualTo(DEFAULT_COUNT);
-        assertThat(testUselog.getUsername()).isEqualTo(DEFAULT_USERNAME);
-        assertThat(testUselog.getDate()).isEqualTo(DEFAULT_DATE);
+        // Validate the UseLog in the database
+        List<UseLog> useLogList = useLogRepository.findAll();
+        assertThat(useLogList).hasSize(databaseSizeBeforeCreate + 1);
+        UseLog testUseLog = useLogList.get(useLogList.size() - 1);
+        assertThat(testUseLog.getNameId()).isEqualTo(DEFAULT_NAME_ID);
+        assertThat(testUseLog.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testUseLog.getType()).isEqualTo(DEFAULT_TYPE);
+        assertThat(testUseLog.getCount()).isEqualTo(DEFAULT_COUNT);
+        assertThat(testUseLog.getUsername()).isEqualTo(DEFAULT_USERNAME);
+        assertThat(testUseLog.getDate()).isEqualTo(DEFAULT_DATE);
     }
 
     @Test
     @Transactional
-    public void createUselogWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = uselogRepository.findAll().size();
+    public void createUseLogWithExistingId() throws Exception {
+        int databaseSizeBeforeCreate = useLogRepository.findAll().size();
 
-        // Create the Uselog with an existing ID
-        uselog.setId(1L);
+        // Create the UseLog with an existing ID
+        useLog.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restUselogMockMvc.perform(post("/api/uselogs")
+        restUseLogMockMvc.perform(post("/api/use-logs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(uselog)))
+            .content(TestUtil.convertObjectToJsonBytes(useLog)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
-        List<Uselog> uselogList = uselogRepository.findAll();
-        assertThat(uselogList).hasSize(databaseSizeBeforeCreate);
+        List<UseLog> useLogList = useLogRepository.findAll();
+        assertThat(useLogList).hasSize(databaseSizeBeforeCreate);
     }
 
     @Test
     @Transactional
-    public void getAllUselogs() throws Exception {
+    public void getAllUseLogs() throws Exception {
         // Initialize the database
-        uselogRepository.saveAndFlush(uselog);
+        useLogRepository.saveAndFlush(useLog);
 
-        // Get all the uselogList
-        restUselogMockMvc.perform(get("/api/uselogs?sort=id,desc"))
+        // Get all the useLogList
+        restUseLogMockMvc.perform(get("/api/use-logs?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(uselog.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name_id").value(hasItem(DEFAULT_NAME_ID.intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(useLog.getId().intValue())))
+            .andExpect(jsonPath("$.[*].nameId").value(hasItem(DEFAULT_NAME_ID.intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE)))
             .andExpect(jsonPath("$.[*].count").value(hasItem(DEFAULT_COUNT)))
@@ -171,16 +171,16 @@ public class UselogResourceIntTest {
 
     @Test
     @Transactional
-    public void getUselog() throws Exception {
+    public void getUseLog() throws Exception {
         // Initialize the database
-        uselogRepository.saveAndFlush(uselog);
+        useLogRepository.saveAndFlush(useLog);
 
-        // Get the uselog
-        restUselogMockMvc.perform(get("/api/uselogs/{id}", uselog.getId()))
+        // Get the useLog
+        restUseLogMockMvc.perform(get("/api/use-logs/{id}", useLog.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(uselog.getId().intValue()))
-            .andExpect(jsonPath("$.name_id").value(DEFAULT_NAME_ID.intValue()))
+            .andExpect(jsonPath("$.id").value(useLog.getId().intValue()))
+            .andExpect(jsonPath("$.nameId").value(DEFAULT_NAME_ID.intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE))
             .andExpect(jsonPath("$.count").value(DEFAULT_COUNT))
@@ -190,93 +190,93 @@ public class UselogResourceIntTest {
 
     @Test
     @Transactional
-    public void getNonExistingUselog() throws Exception {
-        // Get the uselog
-        restUselogMockMvc.perform(get("/api/uselogs/{id}", Long.MAX_VALUE))
+    public void getNonExistingUseLog() throws Exception {
+        // Get the useLog
+        restUseLogMockMvc.perform(get("/api/use-logs/{id}", Long.MAX_VALUE))
             .andExpect(status().isNotFound());
     }
 
     @Test
     @Transactional
-    public void updateUselog() throws Exception {
+    public void updateUseLog() throws Exception {
         // Initialize the database
-        uselogRepository.saveAndFlush(uselog);
-        int databaseSizeBeforeUpdate = uselogRepository.findAll().size();
+        useLogRepository.saveAndFlush(useLog);
+        int databaseSizeBeforeUpdate = useLogRepository.findAll().size();
 
-        // Update the uselog
-        Uselog updatedUselog = uselogRepository.findOne(uselog.getId());
-        updatedUselog
-            .name_id(UPDATED_NAME_ID)
+        // Update the useLog
+        UseLog updatedUseLog = useLogRepository.findOne(useLog.getId());
+        updatedUseLog
+            .nameId(UPDATED_NAME_ID)
             .name(UPDATED_NAME)
             .type(UPDATED_TYPE)
             .count(UPDATED_COUNT)
             .username(UPDATED_USERNAME)
             .date(UPDATED_DATE);
 
-        restUselogMockMvc.perform(put("/api/uselogs")
+        restUseLogMockMvc.perform(put("/api/use-logs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedUselog)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedUseLog)))
             .andExpect(status().isOk());
 
-        // Validate the Uselog in the database
-        List<Uselog> uselogList = uselogRepository.findAll();
-        assertThat(uselogList).hasSize(databaseSizeBeforeUpdate);
-        Uselog testUselog = uselogList.get(uselogList.size() - 1);
-        assertThat(testUselog.getName_id()).isEqualTo(UPDATED_NAME_ID);
-        assertThat(testUselog.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testUselog.getType()).isEqualTo(UPDATED_TYPE);
-        assertThat(testUselog.getCount()).isEqualTo(UPDATED_COUNT);
-        assertThat(testUselog.getUsername()).isEqualTo(UPDATED_USERNAME);
-        assertThat(testUselog.getDate()).isEqualTo(UPDATED_DATE);
+        // Validate the UseLog in the database
+        List<UseLog> useLogList = useLogRepository.findAll();
+        assertThat(useLogList).hasSize(databaseSizeBeforeUpdate);
+        UseLog testUseLog = useLogList.get(useLogList.size() - 1);
+        assertThat(testUseLog.getNameId()).isEqualTo(UPDATED_NAME_ID);
+        assertThat(testUseLog.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testUseLog.getType()).isEqualTo(UPDATED_TYPE);
+        assertThat(testUseLog.getCount()).isEqualTo(UPDATED_COUNT);
+        assertThat(testUseLog.getUsername()).isEqualTo(UPDATED_USERNAME);
+        assertThat(testUseLog.getDate()).isEqualTo(UPDATED_DATE);
     }
 
     @Test
     @Transactional
-    public void updateNonExistingUselog() throws Exception {
-        int databaseSizeBeforeUpdate = uselogRepository.findAll().size();
+    public void updateNonExistingUseLog() throws Exception {
+        int databaseSizeBeforeUpdate = useLogRepository.findAll().size();
 
-        // Create the Uselog
+        // Create the UseLog
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
-        restUselogMockMvc.perform(put("/api/uselogs")
+        restUseLogMockMvc.perform(put("/api/use-logs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(uselog)))
+            .content(TestUtil.convertObjectToJsonBytes(useLog)))
             .andExpect(status().isCreated());
 
-        // Validate the Uselog in the database
-        List<Uselog> uselogList = uselogRepository.findAll();
-        assertThat(uselogList).hasSize(databaseSizeBeforeUpdate + 1);
+        // Validate the UseLog in the database
+        List<UseLog> useLogList = useLogRepository.findAll();
+        assertThat(useLogList).hasSize(databaseSizeBeforeUpdate + 1);
     }
 
     @Test
     @Transactional
-    public void deleteUselog() throws Exception {
+    public void deleteUseLog() throws Exception {
         // Initialize the database
-        uselogRepository.saveAndFlush(uselog);
-        int databaseSizeBeforeDelete = uselogRepository.findAll().size();
+        useLogRepository.saveAndFlush(useLog);
+        int databaseSizeBeforeDelete = useLogRepository.findAll().size();
 
-        // Get the uselog
-        restUselogMockMvc.perform(delete("/api/uselogs/{id}", uselog.getId())
+        // Get the useLog
+        restUseLogMockMvc.perform(delete("/api/use-logs/{id}", useLog.getId())
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
         // Validate the database is empty
-        List<Uselog> uselogList = uselogRepository.findAll();
-        assertThat(uselogList).hasSize(databaseSizeBeforeDelete - 1);
+        List<UseLog> useLogList = useLogRepository.findAll();
+        assertThat(useLogList).hasSize(databaseSizeBeforeDelete - 1);
     }
 
     @Test
     @Transactional
     public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(Uselog.class);
-        Uselog uselog1 = new Uselog();
-        uselog1.setId(1L);
-        Uselog uselog2 = new Uselog();
-        uselog2.setId(uselog1.getId());
-        assertThat(uselog1).isEqualTo(uselog2);
-        uselog2.setId(2L);
-        assertThat(uselog1).isNotEqualTo(uselog2);
-        uselog1.setId(null);
-        assertThat(uselog1).isNotEqualTo(uselog2);
+        TestUtil.equalsVerifier(UseLog.class);
+        UseLog useLog1 = new UseLog();
+        useLog1.setId(1L);
+        UseLog useLog2 = new UseLog();
+        useLog2.setId(useLog1.getId());
+        assertThat(useLog1).isEqualTo(useLog2);
+        useLog2.setId(2L);
+        assertThat(useLog1).isNotEqualTo(useLog2);
+        useLog1.setId(null);
+        assertThat(useLog1).isNotEqualTo(useLog2);
     }
 }

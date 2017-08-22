@@ -44,7 +44,6 @@ public class TypeResource {
     @PostMapping("/types")
     @Timed
     public ResponseEntity<Type> createType(@RequestBody Type type) throws URISyntaxException {
-    	type.setDel_flag(0);
         log.debug("REST request to save Type : {}", type);
         if (type.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new type cannot already have an ID")).body(null);

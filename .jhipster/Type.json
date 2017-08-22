@@ -15,11 +15,11 @@
             "fieldType": "BigDecimal"
         },
         {
-            "fieldName": "del_flag",
+            "fieldName": "delFlag",
             "fieldType": "Integer"
         }
     ],
-    "changelogDate": "20170816092857",
+    "changelogDate": "20170822030158",
     "dto": "no",
     "service": "no",
     "entityTableName": "type",
