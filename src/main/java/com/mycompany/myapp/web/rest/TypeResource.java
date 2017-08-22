@@ -84,6 +84,7 @@ public class TypeResource {
         if (type.getId() == null || !typeRepository.findOneByIdAndDelFlag(type.getId(), Constants.NOT_DELETE).isPresent()) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idnotexist", "cannot find update id")).body(null);
         }
+        useLogService.saveUseLog(type.getId(), type.getName(), type.getReserves(), type.getDelFlag());
         type.setDelFlag(Constants.NOT_DELETE);
         Type result = typeRepository.save(type);
         return ResponseEntity.ok()
@@ -117,6 +118,28 @@ public class TypeResource {
         return ResponseUtil.wrapOrNotFound(type);
     }
 
+    @GetMapping("/searchtypes/{name}")
+    @Timed
+    public List<Type> getSearchTypes(@PathVariable String name){
+    	log.debug("REST request to searchTypes : {}",name);
+    	name = "%" + name + "%";
+    	return typeRepository.findAllByNameLikeAndDelFlag(name, Constants.NOT_DELETE);
+    }
+    
+    @GetMapping("/alarmtypes")
+    @Timed
+    public List<Type> getAlarmTypes(){
+    	log.debug("REST request to getAlarmTypes");
+    	return typeRepository.findAllByReservesLessThanLimitAndDelFlag(Constants.NOT_DELETE);
+    }
+    
+    @GetMapping("/alarmtypescount")
+    @Timed
+    public Integer getAlarmTypesCount(){
+    	log.debug("REST request to getAlarmTypesCount");
+    	return typeRepository.findCountReservesLessThanLimit(Constants.NOT_DELETE);
+    }
+    
     /**
      * DELETE  /types/:id : delete the "id" type.
      *
@@ -135,6 +158,7 @@ public class TypeResource {
         	return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idnotexist", "can not find id")).build();
         }
         Type type = optype.get();
+        useLogService.saveUseLog(type.getId(), type.getName(), type.getReserves(), Constants.TYPE_DELETE);
         type.setDelFlag(Constants.DELETE);
         typeRepository.save(type);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
