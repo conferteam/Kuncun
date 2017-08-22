@@ -1,6 +1,7 @@
 package com.mycompany.myapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.mycompany.myapp.config.Constants;
 import com.mycompany.myapp.domain.Type;
 
 import com.mycompany.myapp.repository.TypeRepository;
@@ -48,6 +49,13 @@ public class TypeResource {
         if (type.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new type cannot already have an ID")).body(null);
         }
+        if(type.getName() == null) {
+        	return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "nameempty", "a new type name cannot empty")).body(null);
+        }
+        if(typeRepository.findOneByNameAndDelFlag(type.getName(), Constants.NOT_DELETE).isPresent()) {
+        	return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "nameexists", "a new type cannot have the same Name")).body(null);
+        }
+        type.setDelFlag(Constants.NOT_DELETE);
         Type result = typeRepository.save(type);
         return ResponseEntity.created(new URI("/api/types/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -67,9 +75,10 @@ public class TypeResource {
     @Timed
     public ResponseEntity<Type> updateType(@RequestBody Type type) throws URISyntaxException {
         log.debug("REST request to update Type : {}", type);
-        if (type.getId() == null) {
-            return createType(type);
+        if (type.getId() == null || !typeRepository.findOneByIdAndDelFlag(type.getId(), Constants.NOT_DELETE).isPresent()) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idnotexist", "cannot find update id")).body(null);
         }
+        type.setDelFlag(Constants.NOT_DELETE);
         Type result = typeRepository.save(type);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, type.getId().toString()))
@@ -85,7 +94,7 @@ public class TypeResource {
     @Timed
     public List<Type> getAllTypes() {
         log.debug("REST request to get all Types");
-        return typeRepository.findAll();
+        return typeRepository.findAllByDelFlag(Constants.NOT_DELETE);
     }
 
     /**
@@ -98,8 +107,8 @@ public class TypeResource {
     @Timed
     public ResponseEntity<Type> getType(@PathVariable Long id) {
         log.debug("REST request to get Type : {}", id);
-        Type type = typeRepository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(type));
+        Optional<Type> type = typeRepository.findOneByIdAndDelFlag(id, Constants.NOT_DELETE);
+        return ResponseUtil.wrapOrNotFound(type);
     }
 
     /**
@@ -112,7 +121,16 @@ public class TypeResource {
     @Timed
     public ResponseEntity<Void> deleteType(@PathVariable Long id) {
         log.debug("REST request to delete Type : {}", id);
-        typeRepository.delete(id);
+        Optional<Type> optype = Optional.empty();
+        if(id != null) {
+        	optype = typeRepository.findOneByIdAndDelFlag(id, Constants.NOT_DELETE);
+        }
+        if(id == null || !optype.isPresent()) {
+        	return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idnotexist", "can not find id")).build();
+        }
+        Type type = optype.get();
+        type.setDelFlag(Constants.DELETE);
+        typeRepository.save(type);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }
