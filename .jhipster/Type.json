@@ -17,6 +17,10 @@
         {
             "fieldName": "delFlag",
             "fieldType": "Integer"
+        },
+        {
+            "fieldName": "unit",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20170822030158",

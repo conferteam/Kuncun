@@ -18,7 +18,8 @@
             "name": "Name",
             "reserves": "Reserves",
             "limit": "Limit",
-            "delFlag": "Del Flag"
+            "delFlag": "Del Flag",
+            "unit": "Unit"
         }
     }
 }

@@ -108,6 +108,7 @@
                                 reserves: null,
                                 limit: null,
                                 delFlag: null,
+                                unit: null,
                                 id: null
                             };
                         }

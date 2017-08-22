@@ -34,6 +34,9 @@ public class Type implements Serializable {
     @Column(name = "del_flag")
     private Integer delFlag;
 
+    @Column(name = "unit")
+    private String unit;
+
     public Long getId() {
         return id;
     }
@@ -94,6 +97,19 @@ public class Type implements Serializable {
         this.delFlag = delFlag;
     }
 
+    public String getUnit() {
+        return unit;
+    }
+
+    public Type unit(String unit) {
+        this.unit = unit;
+        return this;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -122,6 +138,7 @@ public class Type implements Serializable {
             ", reserves='" + getReserves() + "'" +
             ", limit='" + getLimit() + "'" +
             ", delFlag='" + getDelFlag() + "'" +
+            ", unit='" + getUnit() + "'" +
             "}";
     }
 }
