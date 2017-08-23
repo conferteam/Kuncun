@@ -13,6 +13,7 @@
         vm.type = entity;
         vm.clear = clear;
         vm.save = save;
+        
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -41,6 +42,7 @@
             vm.isSaving = false;
         }
 
+        
 
     }
 })();
