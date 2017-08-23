@@ -41,7 +41,7 @@ public class AlarmResource {
      * @return the ResponseEntity with status 201 (Created) and with body the new alarm, or with status 400 (Bad Request) if the alarm has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PostMapping("/alarms")
+   /* @PostMapping("/alarms")
     @Timed
     public ResponseEntity<Alarm> createAlarm(@RequestBody Alarm alarm) throws URISyntaxException {
         log.debug("REST request to save Alarm : {}", alarm);
@@ -54,7 +54,7 @@ public class AlarmResource {
             .body(result);
     }
 
-    /**
+    *//**
      * PUT  /alarms : Updates an existing alarm.
      *
      * @param alarm the alarm to update
@@ -62,7 +62,7 @@ public class AlarmResource {
      * or with status 400 (Bad Request) if the alarm is not valid,
      * or with status 500 (Internal Server Error) if the alarm couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
+     *//*
     @PutMapping("/alarms")
     @Timed
     public ResponseEntity<Alarm> updateAlarm(@RequestBody Alarm alarm) throws URISyntaxException {
@@ -76,11 +76,11 @@ public class AlarmResource {
             .body(result);
     }
 
-    /**
+    *//**
      * GET  /alarms : get all the alarms.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of alarms in body
-     */
+     *//*
     @GetMapping("/alarms")
     @Timed
     public List<Alarm> getAllAlarms() {
@@ -88,12 +88,12 @@ public class AlarmResource {
         return alarmRepository.findAll();
     }
 
-    /**
+    *//**
      * GET  /alarms/:id : get the "id" alarm.
      *
      * @param id the id of the alarm to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the alarm, or with status 404 (Not Found)
-     */
+     *//*
     @GetMapping("/alarms/{id}")
     @Timed
     public ResponseEntity<Alarm> getAlarm(@PathVariable Long id) {
@@ -102,17 +102,17 @@ public class AlarmResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(alarm));
     }
 
-    /**
+    *//**
      * DELETE  /alarms/:id : delete the "id" alarm.
      *
      * @param id the id of the alarm to delete
      * @return the ResponseEntity with status 200 (OK)
-     */
+     *//*
     @DeleteMapping("/alarms/{id}")
     @Timed
     public ResponseEntity<Void> deleteAlarm(@PathVariable Long id) {
         log.debug("REST request to delete Alarm : {}", id);
         alarmRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
+    }*/
 }
