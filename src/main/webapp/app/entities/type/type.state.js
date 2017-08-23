@@ -31,7 +31,7 @@
                 }]
             }
         })
-        .state('type-detail', {
+        /*.state('type-detail', {
             parent: 'type',
             url: '/type/{id}',
             data: {
@@ -87,7 +87,7 @@
                     $state.go('^');
                 });
             }]
-        })
+        })*/
         .state('type.new', {
             parent: 'type',
             url: '/new',

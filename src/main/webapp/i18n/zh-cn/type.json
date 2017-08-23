@@ -2,8 +2,8 @@
     "kucunApp": {
         "type" : {
             "home": {
-                "title": "Types",
-                "createLabel": "Create a new Type",
+                "title": "库存",
+                "createLabel": "新建条目",
                 "createOrEditLabel": "Create or edit a Type"
             },
             "created": "A new Type is created with identifier {{ param }}",
